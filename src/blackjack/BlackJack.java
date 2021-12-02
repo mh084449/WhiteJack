@@ -42,21 +42,18 @@ public class BlackJack {
             player = game.getPlayer()[i];
             score = player.getScore();
 
+            System.out.println(player.getName() + "'s Turn");
             System.out.println(player.getName() + "'s Score: " + score);
-            System.out.println("1) Hit");
-            System.out.println("2) Stand");
-            System.out.println("--------------------");
 
-            num = input.nextInt();
-
-            while(!(num == 1 || num == 2)){
-                System.out.println();
+            do{
                 System.out.println("1) Hit");
                 System.out.println("2) Stand");
                 System.out.println("--------------------");
+                System.out.println();
 
                 num = input.nextInt();
             }
+            while(!(num == 1 || num == 2));
 
             while(num != 2){
                 score = player.getScore();
@@ -71,12 +68,12 @@ public class BlackJack {
                 if(score == 21){
                     player.setBlackjack(true);
                     System.out.println();
-                    System.out.println("Player " + player.getName() + " Scored BlackJack!");
+                    System.out.println(player.getName() + " Scored BlackJack!");
                     System.out.println();
                 }
                 else if(score > 21){
                     System.out.println();
-                    System.out.println(player.getName() + " Lost!");
+                    System.out.println(player.getName() + " is Busted!");
                     System.out.println();
                     player.setLost(true);
                     score = 0;
@@ -91,14 +88,8 @@ public class BlackJack {
                     break;
                 }
 
-                System.out.println();
-                System.out.println("1) Hit");
-                System.out.println("2) Stand");
-                System.out.println("--------------------");
 
-                num = input.nextInt();
-
-                while(!(num == 1 || num == 2)){
+                do {
                     System.out.println();
                     System.out.println("1) Hit");
                     System.out.println("2) Stand");
@@ -106,6 +97,7 @@ public class BlackJack {
 
                     num = input.nextInt();
                 }
+                while(!(num == 1 || num == 2));
             }
 
             if(num == 2){
@@ -122,6 +114,8 @@ public class BlackJack {
 
         score = player.getScore();
         System.out.println("Highest Score: " + highScore);
+        System.out.println();
+        System.out.println("Dealer's Turn");
         System.out.println("Dealer Score: " + score);
         System.out.println();
 
@@ -133,12 +127,13 @@ public class BlackJack {
 
             gui.updateDealerHand(tmpCard, game.getCard());
 
+            System.out.println("Dealer is Drawing...");
             System.out.println("Dealer New Score: " + score);
 
             if(score == 21){
                 player.setBlackjack(true);
                 System.out.println();
-                System.out.println("Player " + player.getName() + " Scored BlackJack!");
+                System.out.println(player.getName() + " Scored BlackJack!");
                 System.out.println();
                 if(highScore == 21){
                     System.out.println("GAME STATE: A PUSH!");
@@ -147,7 +142,7 @@ public class BlackJack {
             }
             else if(score > 21){
                 System.out.println();
-                System.out.println(player.getName() + " (Dealer) Lost!");
+                System.out.println(player.getName() + " (Dealer) is Busted!");
                 System.out.println();
                 player.setLost(true);
                 for(int i = 0; i < 3; ++i){
