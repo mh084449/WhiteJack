@@ -58,9 +58,13 @@ public class Game {
 
     }
 
-    public void updateScore(int score){
+    public void updateScore(){
 
-        highScore = max(score, highScore);
+        int score;
+        for(int i = 0; i < 3; ++i){
+            score = player[i].getScore();
+            highScore = max(score, highScore);
+        }
     }
 
 }

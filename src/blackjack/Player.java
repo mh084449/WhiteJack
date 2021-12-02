@@ -15,12 +15,20 @@ public class Player {
         this.score = card.getValue() + card1.getValue();
     }
 
+    public Boolean getLost() {
+        return lost;
+    }
+
     public Card[] getCard() {
         return card;
     }
 
     public int getScore() {
         return score;
+    }
+
+    public Boolean getBlackjack() {
+        return blackjack;
     }
 
     public String getName() {

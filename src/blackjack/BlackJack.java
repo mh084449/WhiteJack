@@ -26,9 +26,6 @@ public class BlackJack {
             }
             name = input.next();
             game.spawnPlayer(name, i);
-            player = game.getPlayer()[i];
-            score = player.getScore();
-            game.updateScore(score);
         }
 
         System.out.println();
@@ -74,19 +71,25 @@ public class BlackJack {
                 if(score == 21){
                     player.setBlackjack(true);
                     System.out.println();
-                    System.out.println("GAME STATE: " + player.getName() + " Won!!!");
-                    System.exit(0);
+                    System.out.println("Player " + player.getName() + " Scored BlackJack!");
+                    System.out.println();
                 }
                 else if(score > 21){
                     System.out.println();
                     System.out.println(player.getName() + " Lost!");
                     System.out.println();
                     player.setLost(true);
-                    break;
+                    score = 0;
                 }
 
                 player.setScore(score);
-                game.updateScore(score);
+
+                if(player.getBlackjack()){
+                    break;
+                }
+                if(player.getLost()){
+                    break;
+                }
 
                 System.out.println();
                 System.out.println("1) Hit");
@@ -110,6 +113,8 @@ public class BlackJack {
             }
         }
 
+        game.updateScore();
+
         player = game.getPlayer()[3];
         int highScore = game.getHighScore();
         int cnt = 0;
@@ -122,7 +127,6 @@ public class BlackJack {
 
         while(!(player.getScore() > highScore)){
 
-            score = player.getScore();
             tmpCard = game.drawCard();
             score += tmpCard.getValue();
             player.setScore(score);
@@ -134,8 +138,12 @@ public class BlackJack {
             if(score == 21){
                 player.setBlackjack(true);
                 System.out.println();
-                System.out.println("GAME STATE: " + player.getName() + " (Dealer) Won!!!");
-                System.exit(0);
+                System.out.println("Player " + player.getName() + " Scored BlackJack!");
+                System.out.println();
+                if(highScore == 21){
+                    System.out.println("GAME STATE: A PUSH!");
+                    return;
+                }
             }
             else if(score > 21){
                 System.out.println();
@@ -155,12 +163,14 @@ public class BlackJack {
                 else{
                     System.out.println("GAME STATE: A PUSH!");
                 }
-                System.exit(0);
+                return;
             }
+
+            score = player.getScore();
 
         }
 
         System.out.println("GAME STATE: " + player.getName() + " (Dealer) Won!!!");
-        System.exit(0);
+        return;
     }
 }
